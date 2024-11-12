@@ -97,3 +97,8 @@ void analyzeRectangle() {
         return;
     }
 
+    double perimeter, area;
+    calculate_perimeter_area(points, &perimeter, &area);
+    printf("The perimeter of the rectangle is: %.2f\n", perimeter);
+    printf("The area of the rectangle is: %.2f\n", area);
+}
