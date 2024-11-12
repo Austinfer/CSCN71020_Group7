@@ -13,6 +13,30 @@ void analyzeTriangle();
 void analyzeRectangle();
 
 
+int main() {
+    bool continueProgram = true;
+    printWelcome();
+    while (continueProgram) {
+        int shapeChoice = printShapeMenu();
+
+        switch (shapeChoice) {
+        case 1:
+            analyzeTriangle();
+            break;
+        case 2:
+            analyzeRectangle();
+            break;
+        case 0:
+            continueProgram = false;
+            break;
+        default:
+            printf("Invalid value entered.\n");
+            break;
+        }
+    }
+
+    return 0;
+}
 
 
 
