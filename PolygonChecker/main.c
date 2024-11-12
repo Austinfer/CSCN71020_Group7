@@ -1,38 +1,20 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
-
+#include "rectangleSolver.h"
 #include "main.h"
 #include "triangleSolver.h"
 
-int side = 0;
+// Function prototypes
+void printWelcome();
+int printShapeMenu();
+int* getTriangleSides(int* triangleSides);
+void analyzeTriangle();
+void analyzeRectangle();
 
-int main() {
-	bool continueProgram = true;
-	while (continueProgram) {
-		printWelcome();
 
-		int shapeChoice = printShapeMenu();
 
-		switch (shapeChoice)
-		{
-		case 1:
-			printf_s("Triangle selected.\n");
-			int triangleSides[3] = { 0, 0, 0 };
-			int* triangleSidesPtr = getTriangleSides(triangleSides);
-			//printf_s("! %d\n", triangleSidesPtr[0]);
-			char* result = analyzeTriangle(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
-			printf_s("%s\n", result);
-			break;
-		case 0:
-			continueProgram = false;
-			break;
-		default:
-			printf_s("Invalid value entered.\n");
-			break;
-		}
-	}
-	return 0;
-}
+
 
 void printWelcome() {
 	printf_s("\n");
