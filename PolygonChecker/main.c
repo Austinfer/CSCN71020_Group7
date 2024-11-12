@@ -68,3 +68,18 @@ int* getTriangleSides(int* triangleSides) {
 	}
 	return triangleSides;
 }
+
+void analyzeTriangle() {
+    int triangleSides[3];
+    getTriangleSides(triangleSides);
+
+    char* result = analyzeTriangle(triangleSides[0], triangleSides[1], triangleSides[2]);
+    printf("%s\n", result);
+
+    if (is_valid_triangle(triangleSides[0], triangleSides[1], triangleSides[2])) {
+        double angle1, angle2, angle3;
+        calculateTriangleAngles(triangleSides[0], triangleSides[1], triangleSides[2], &angle1, &angle2, &angle3);
+        printf("The angles of the triangle are: %.2f, %.2f, %.2f\n", angle1, angle2, angle3);
+    }
+}
+
