@@ -83,3 +83,17 @@ void analyzeTriangle() {
     }
 }
 
+void analyzeRectangle() {
+    double points[4][2];
+    for (int i = 0; i < 4; i++) {
+        printf("Enter x coordinate of point %d: ", i + 1);
+        scanf("%lf", &points[i][0]);
+        printf("Enter y coordinate of point %d: ", i + 1);
+        scanf("%lf", &points[i][1]);
+    }
+
+    if (!is_rectangle(points)) {
+        printf("The given points do not form a rectangle.\n");
+        return;
+    }
+
