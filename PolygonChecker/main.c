@@ -1,38 +1,44 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
-
+#include "rectangleSolver.h"
 #include "main.h"
 #include "triangleSolver.h"
 
-int side = 0;
+// Function prototypes
+void printWelcome();
+int printShapeMenu();
+int* getTriangleSides(int* triangleSides);
+void analyzeTriangle();
+void analyzeRectangle();
+
 
 int main() {
-	bool continueProgram = true;
-	while (continueProgram) {
-		printWelcome();
+    bool continueProgram = true;
+    printWelcome();
+    while (continueProgram) {
+        int shapeChoice = printShapeMenu();
 
-		int shapeChoice = printShapeMenu();
+        switch (shapeChoice) {
+        case 1:
+            analyzeTriangle();
+            break;
+        case 2:
+            analyzeRectangle();
+            break;
+        case 0:
+            continueProgram = false;
+            break;
+        default:
+            printf("Invalid value entered.\n");
+            break;
+        }
+    }
 
-		switch (shapeChoice)
-		{
-		case 1:
-			printf_s("Triangle selected.\n");
-			int triangleSides[3] = { 0, 0, 0 };
-			int* triangleSidesPtr = getTriangleSides(triangleSides);
-			//printf_s("! %d\n", triangleSidesPtr[0]);
-			char* result = analyzeTriangle(triangleSidesPtr[0], triangleSidesPtr[1], triangleSidesPtr[2]);
-			printf_s("%s\n", result);
-			break;
-		case 0:
-			continueProgram = false;
-			break;
-		default:
-			printf_s("Invalid value entered.\n");
-			break;
-		}
-	}
-	return 0;
+    return 0;
 }
+
+
 
 void printWelcome() {
 	printf_s("\n");
@@ -61,4 +67,38 @@ int* getTriangleSides(int* triangleSides) {
 		scanf_s("%d", &triangleSides[i]);
 	}
 	return triangleSides;
+}
+
+void analyzeTriangle() {
+    int triangleSides[3];
+    getTriangleSides(triangleSides);
+
+    char* result = analyzeTriangle(triangleSides[0], triangleSides[1], triangleSides[2]);
+    printf("%s\n", result);
+
+    if (is_valid_triangle(triangleSides[0], triangleSides[1], triangleSides[2])) {
+        double angle1, angle2, angle3;
+        calculateTriangleAngles(triangleSides[0], triangleSides[1], triangleSides[2], &angle1, &angle2, &angle3);
+        printf("The angles of the triangle are: %.2f, %.2f, %.2f\n", angle1, angle2, angle3);
+    }
+}
+
+void analyzeRectangle() {
+    double points[4][2];
+    for (int i = 0; i < 4; i++) {
+        printf("Enter x coordinate of point %d: ", i + 1);
+        scanf("%lf", &points[i][0]);
+        printf("Enter y coordinate of point %d: ", i + 1);
+        scanf("%lf", &points[i][1]);
+    }
+
+    if (!is_rectangle(points)) {
+        printf("The given points do not form a rectangle.\n");
+        return;
+    }
+
+    double perimeter, area;
+    calculate_perimeter_area(points, &perimeter, &area);
+    printf("The perimeter of the rectangle is: %.2f\n", perimeter);
+    printf("The area of the rectangle is: %.2f\n", area);
 }
