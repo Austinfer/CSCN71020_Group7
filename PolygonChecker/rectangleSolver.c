@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include "rectangleSolver.h"
 
+
 bool is_valid_point(double x, double y) {
     return true; 
 }
