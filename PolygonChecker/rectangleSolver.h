@@ -1,4 +1,5 @@
 #pragma once
+
 bool is_valid_point(double x, double y);
 bool is_rectangle(double points[4][2]);
 void calculate_perimeter_area(double points[4][2], double* perimeter, double* area);

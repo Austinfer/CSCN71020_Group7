@@ -4,41 +4,7 @@
 #include "rectangleSolver.h"
 #include "main.h"
 #include "triangleSolver.h"
-
-
-// Function prototypes
-void printWelcome();
-int printShapeMenu();
-int* getTriangleSides(int* triangleSides);
-void analyzeTriangle();
-void analyzeRectangle();
-
-
-int main() {
-    bool continueProgram = true;
-    printWelcome();
-    while (continueProgram) {
-        int shapeChoice = printShapeMenu();
-
-        switch (shapeChoice) {
-        case 1:
-            analyzeTriangle();
-            break;
-        case 2:
-            analyzeRectangle();
-            break;
-        case 0:
-            continueProgram = false;
-            break;
-        default:
-            printf("Invalid value entered.\n");
-            break;
-        }
-    }
-
-    return 0;
-}
-
+#define _CRT_SECURE_NO_WARNINGS
 
 
 void printWelcome() {
@@ -51,6 +17,7 @@ void printWelcome() {
 
 int printShapeMenu() {
 	printf_s("1. Triangle\n");
+    printf_s("2. Rectangle\n");
 	printf_s("0. Exit\n");
 
 	int shapeChoice;
@@ -70,11 +37,11 @@ int* getTriangleSides(int* triangleSides) {
 	return triangleSides;
 }
 
-void analyzeTriangle() {
+void analyzeTriangleFlow() {  // Renamed to avoid conflict
     int triangleSides[3];
     getTriangleSides(triangleSides);
 
-    char* result = analyzeTriangle(triangleSides[0], triangleSides[1], triangleSides[2]);
+    char* result = analyzeTriangle(triangleSides[0], triangleSides[1], triangleSides[2]); // Correct function call
     printf("%s\n", result);
 
     if (is_valid_triangle(triangleSides[0], triangleSides[1], triangleSides[2])) {
@@ -84,13 +51,14 @@ void analyzeTriangle() {
     }
 }
 
+
 void analyzeRectangle() {
     double points[4][2];
     for (int i = 0; i < 4; i++) {
         printf("Enter x coordinate of point %d: ", i + 1);
-        scanf("%lf", &points[i][0]);
-        printf("Enter y coordinate of point %d: ", i + 1);
-        scanf("%lf", &points[i][1]);
+        scanf_s("%lf", &points[i][0]);
+        printf_s("Enter y coordinate of point %d: ", i + 1);
+        scanf_s("%lf", &points[i][1]);
     }
 
     if (!is_rectangle(points)) {
@@ -102,4 +70,28 @@ void analyzeRectangle() {
     calculate_perimeter_area(points, &perimeter, &area);
     printf("The perimeter of the rectangle is: %.2f\n", perimeter);
     printf("The area of the rectangle is: %.2f\n", area);
+}
+int main() {
+    bool continueProgram = true;
+    printWelcome();
+    while (continueProgram) {
+        int shapeChoice = printShapeMenu();
+
+        switch (shapeChoice) {
+        case 1:
+            analyzeTriangleFlow(); 
+            break;
+        case 2:
+            analyzeRectangle();
+            break;
+        case 0:
+            continueProgram = false;
+            break;
+        default:
+            printf("Invalid value entered.\n");
+            break;
+        }
+    }
+
+    return 0;
 }
